@@ -205,3 +205,46 @@ footer{
   .kv-table{ grid-template-columns: 240px 1fr; }
 }
 
+
+/* Ajustes para pantallas chicas */
+@media (max-width: 480px) {
+  main{
+    padding: 10px 12px 16px; /* menos padding abajo */
+  }
+
+  .hero{
+    margin-bottom: 2px;
+  }
+
+  .hero img{
+    width: 55%;    /* antes 70%, así no ocupa tanto alto */
+    max-width: 210px;
+  }
+
+  footer{
+    padding: 10px 12px;
+  }
+}
+
+
+/* === Footer siempre visible === */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #768;
+  font-size: 12px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--gris-borde);
+  background: #fff; /* evita que se vea transparente */
+  z-index: 100;
+}
+
+/* Agregamos espacio inferior para que el contenido no quede oculto tras el footer */
+main {
+  padding-bottom: 60px; /* ajusta según el alto del footer */
+}
+
+
