@@ -13,26 +13,22 @@
 <body>
   <div class="app">
     <header>
-      <div class="top-title">RECINTOS ELECTORALES</div>
+      <div class="top-title" id="topTitle">RECINTOS ELECTORALES</div>
       <div class="logos">
-        <img src="assets/img/logoGCM12.jpg" alt="GCM 12" />
+        <img id="unitLogo" src="assets/img/logo_gcm12.png" alt="Logo unidad" />
       </div>
-      <div class="subtitulo">GCM 12 TNTE HUGO ORTIZ</div>
+      <div class="subtitulo" id="unitSubtitle">GCM 12 TNTE HUGO ORTIZ</div>
     </header>
 
     <main>
-      <section class="card" id="resultHeader">
-        <!-- Aquí se inyecta: GRADO + APELLIDOS_Y_NOMBRES -->
-      </section>
+      <section class="card" id="resultHeader"></section>
 
-      <!-- Contenedor de misión alternativa -->
       <section class="card" id="missionBox" hidden>
         <p class="mission-text">
           Usted está designado para cumplir: <strong id="missionValue"></strong>
         </p>
       </section>
 
-      <!-- Contenedor de tabla de datos cuando MISION === "Recinto Electoral" -->
       <section class="card" id="tableBox" hidden>
         <div class="kv-table">
           <div class="kv-label">PROVINCIA</div>
@@ -51,10 +47,8 @@
           <div class="kv-value" id="vDireccion"></div>
         </div>
 
-        <!-- Botón para abrir en Maps -->
         <div class="actions" style="margin-top:12px;">
           <button type="button" class="btn btn-map" id="btnMaps">
-            <!-- icono simple -->
             <svg class="icon-map" viewBox="0 0 24 24" aria-hidden="true">
               <path
                 d="M12 2C8.962 2 6.5 4.462 6.5 7.5c0 4.004 4.39 8.82 5.66 10.12a.5.5 0 0 0 .72 0c1.27-1.3 5.62-6.116 5.62-10.12C18.5 4.462 16.038 2 13 2h-1Zm0 6.75a2.25 2.25 0 1 1 0-4.5 2.25 2.25 0 0 1 0 4.5Z" />
@@ -62,25 +56,21 @@
             Abrir en Google Maps
           </button>
         </div>
-
       </section>
 
       <div class="actions">
-        <a class="btn btn-secondary" href="index.html">Nueva consulta</a>
+        <a class="btn btn-secondary" id="btnNuevaConsulta">Nueva consulta</a>
       </div>
     </main>
 
     <footer>Powered by Tnte Cruz B</footer>
   </div>
 
-  <!-- Modal de confirmación -->
   <div class="modal-backdrop" id="mapsModal" hidden>
     <div class="modal-box">
       <h2>Confirmar dirección</h2>
       <p class="modal-text">
-        La siguiente dirección corresponde a la información registrada en la base de datos del recinto electoral. No se
-        trata de una ubicación georreferenciada. Verifique que el lugar mostrado coincida con su recinto antes de
-        iniciar la navegación.
+        La siguiente dirección corresponde a la información registrada en la base de datos del recinto electoral.
       </p>
       <p class="modal-dir" id="modalDir"></p>
       <div class="modal-actions">
@@ -93,7 +83,5 @@
   <script src="js/config.js"></script>
   <script src="js/result.js"></script>
 </body>
-
-
 
 </html>
