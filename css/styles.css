@@ -248,3 +248,70 @@ main {
 }
 
 
+/* === Modal Maps === */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.38);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 16px;
+}
+
+.modal-box {
+  background: #fff;
+  border-radius: 14px;
+  max-width: 480px;
+  width: 100%;
+  padding: 16px 16px 14px;
+  box-shadow: 0 12px 32px rgba(0,0,0,.12);
+}
+
+.modal-box h2 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #0b2a4d;
+}
+
+.modal-text {
+  font-size: 13px;
+  line-height: 1.4;
+  color: #475569;
+  margin-bottom: 8px;
+}
+
+.modal-dir {
+  font-size: 13px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 6px 8px;
+  margin-bottom: 10px;
+  word-break: break-word;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.btn-map {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.icon-map {
+  width: 16px;
+  height: 16px;
+  fill: #fff;
+}

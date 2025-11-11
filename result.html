@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <title>Resultado de la consulta</title>
@@ -8,6 +9,7 @@
   <link rel="stylesheet" href="css/reset.css" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
+
 <body>
   <div class="app">
     <header>
@@ -48,6 +50,19 @@
           <div class="kv-label">DIRECCIÓN</div>
           <div class="kv-value" id="vDireccion"></div>
         </div>
+
+        <!-- Botón para abrir en Maps -->
+        <div class="actions" style="margin-top:12px;">
+          <button type="button" class="btn btn-map" id="btnMaps">
+            <!-- icono simple -->
+            <svg class="icon-map" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 2C8.962 2 6.5 4.462 6.5 7.5c0 4.004 4.39 8.82 5.66 10.12a.5.5 0 0 0 .72 0c1.27-1.3 5.62-6.116 5.62-10.12C18.5 4.462 16.038 2 13 2h-1Zm0 6.75a2.25 2.25 0 1 1 0-4.5 2.25 2.25 0 0 1 0 4.5Z" />
+            </svg>
+            Abrir en Google Maps
+          </button>
+        </div>
+
       </section>
 
       <div class="actions">
@@ -58,7 +73,27 @@
     <footer>Powered by Tnte Cruz B</footer>
   </div>
 
+  <!-- Modal de confirmación -->
+  <div class="modal-backdrop" id="mapsModal" hidden>
+    <div class="modal-box">
+      <h2>Confirmar dirección</h2>
+      <p class="modal-text">
+        La siguiente dirección corresponde a la información registrada en la base de datos del recinto electoral. No se
+        trata de una ubicación georreferenciada. Verifique que el lugar mostrado coincida con su recinto antes de
+        iniciar la navegación.
+      </p>
+      <p class="modal-dir" id="modalDir"></p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" id="btnModalCancel">Cancelar</button>
+        <button type="button" class="btn" id="btnModalOk">Abrir en Maps</button>
+      </div>
+    </div>
+  </div>
+
   <script src="js/config.js"></script>
   <script src="js/result.js"></script>
 </body>
+
+
+
 </html>
