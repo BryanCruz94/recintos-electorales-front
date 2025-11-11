@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>RECINTOS ELECTORALES GCM 12</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="favicon.ico" />
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="top-title">RECINTOS ELECTORALES</div>
+      <div class="logos">
+        <!-- Reemplaza las rutas con tus imágenes -->
+        <img src="assets/img/logoGCM12.jpg" alt="CNE" />
+      </div>
+      <div class="subtitulo">GCM 12 TNTE HUGO ORTIZ</div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <img src="assets/img/logo_Recintos electorales.png" alt="Votar" width="70%"  />
+      </section>
+
+      <section class="card">
+        <form id="consultaForm" class="form-box" novalidate>
+          <label for="ci">Número de cédula</label>
+          <div class="input-ci">
+            <input
+              type="text"
+              id="ci"
+              name="ci"
+              placeholder="Ingresa tu número de cédula"
+              maxlength="10"
+              inputmode="numeric"
+              autocomplete="off"
+              aria-invalid="false"
+              aria-describedby="msgError"
+            />
+          </div>
+
+          <button type="submit" id="btnConsultar" class="btn" disabled>
+            Consultar
+          </button>
+
+          <div id="msgError" class="error" role="alert"></div>
+        </form>
+      </section>
+    </main>
+
+    <footer>Powered by Tnte Cruz B</footer>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

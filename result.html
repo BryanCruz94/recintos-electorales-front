@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Resultado de la consulta</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="favicon.ico" />
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="top-title">RECINTOS ELECTORALES</div>
+      <div class="logos">
+        <img src="assets/img/logoGCM12.jpg" alt="GCM 12" />
+      </div>
+      <div class="subtitulo">GCM 12 TNTE HUGO ORTIZ</div>
+    </header>
+
+    <main>
+      <section class="card" id="resultHeader">
+        <!-- Aquí se inyecta: GRADO + APELLIDOS_Y_NOMBRES -->
+      </section>
+
+      <!-- Contenedor de misión alternativa -->
+      <section class="card" id="missionBox" hidden>
+        <p class="mission-text">
+          Usted está designado para cumplir: <strong id="missionValue"></strong>
+        </p>
+      </section>
+
+      <!-- Contenedor de tabla de datos cuando MISION === "Recinto Electoral" -->
+      <section class="card" id="tableBox" hidden>
+        <div class="kv-table">
+          <div class="kv-label">PROVINCIA</div>
+          <div class="kv-value" id="vProvincia"></div>
+
+          <div class="kv-label">CANTÓN</div>
+          <div class="kv-value" id="vCanton"></div>
+
+          <div class="kv-label">PARROQUIA</div>
+          <div class="kv-value" id="vParroquia"></div>
+
+          <div class="kv-label">NOMBRE RECINTO</div>
+          <div class="kv-value" id="vRecinto"></div>
+
+          <div class="kv-label">DIRECCIÓN</div>
+          <div class="kv-value" id="vDireccion"></div>
+        </div>
+      </section>
+
+      <div class="actions">
+        <a class="btn btn-secondary" href="index.html">Nueva consulta</a>
+      </div>
+    </main>
+
+    <footer>Powered by Tnte Cruz B</footer>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/result.js"></script>
+</body>
+</html>
