@@ -15,5 +15,10 @@ window.APP_CONFIG = {
     },
     // aquí puedes seguir agregando:
     // BRIG45: { title: "BRIGADA DE SELVA N.º 45", logo: "logo_brig45.png" }
+    // UNIDAD PARA PRUEBAS
+    PRUEBAS: {
+      title: "UNIDAD DE PRUEBAS",
+      logo: "pruebas.png",
+    },
   }
 };

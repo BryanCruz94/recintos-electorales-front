@@ -44,6 +44,10 @@
   const vRecinto = document.getElementById("vRecinto");
   const vDireccion = document.getElementById("vDireccion");
 
+  // NUEVOS elementos de Orden de Operaciones
+  const lblOrden = document.getElementById("lblOrdenOperaciones");
+  const btnOrden = document.getElementById("btnOrdenOperaciones");
+
   const btnMaps = document.getElementById("btnMaps");
   const modal = document.getElementById("mapsModal");
   const modalDir = document.getElementById("modalDir");
@@ -57,7 +61,6 @@
       <div class="result-title">Sin datos para mostrar</div>
       <p class="muted">Realiza una consulta primero.</p>
     `;
-    // volver a la misma unidad
     setTimeout(() => (window.location.href = `index.html?unit=${unidad.toLowerCase()}`), 1500);
     return;
   }
@@ -88,6 +91,20 @@
     vParroquia.textContent = parroquia;
     vRecinto.textContent = recinto;
     vDireccion.textContent = direccion;
+
+    // ==== ORDEN DE OPERACIONES (mostrar botón solo si existe) ====
+    const orden = (data.ORDEN_OPERACIONES || "").toString().trim();
+
+    if (orden) {
+      lblOrden.hidden = false;
+      btnOrden.parentElement.hidden = false;
+      btnOrden.onclick = () => {
+        window.open(orden, "_blank");
+      };
+    } else {
+      lblOrden.hidden = true;
+      btnOrden.parentElement.hidden = true;
+    }
 
     tableBox.hidden = false;
     missionBox.hidden = true;
@@ -134,4 +151,3 @@ if (btnNueva) {
     window.location.href = `index.html?unit=${unidad.toLowerCase()}`;
   });
 }
-
