@@ -103,4 +103,13 @@
       btn.disabled = !isValidCI(ciInput.value);
     }
   });
+
+  // ===== footer =====
+  const devInfo = document.getElementById("devInfo");
+  const poweredBy = document.getElementById("poweredBy");
+  const appVersion = document.getElementById("appVersion");
+
+  devInfo.textContent = window.APP_CONFIG.APP_INFO.DEV;
+  poweredBy.textContent = window.APP_CONFIG.APP_INFO.POWERED_BY;
+  appVersion.textContent = window.APP_CONFIG.APP_INFO.VERSION;
 })();

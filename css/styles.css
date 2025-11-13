@@ -315,3 +315,49 @@ main {
   height: 16px;
   fill: #fff;
 }
+
+.kv-label-with-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.btn-square {
+  width: 34px;
+  height: 34px;
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-people .icon-people {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.cell-phone {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.btn-phone {
+  padding: 6px;
+  min-width: 36px;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-phone .icon-phone {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+

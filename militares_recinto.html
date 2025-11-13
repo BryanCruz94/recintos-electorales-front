@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
-  <title>RECINTOS ELECTORALES</title>
+  <title>Militares del recinto</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" href="favicon.ico" />
   <link rel="stylesheet" href="css/reset.css" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
+
 <body>
   <div class="app">
     <header>
@@ -19,34 +21,26 @@
     </header>
 
     <main>
-      <section class="hero">
-        <img src="assets/img/logo_Recintos electorales.png" alt="Votar" width="70%"  />
-      </section>
-
       <section class="card">
-        <form id="consultaForm" class="form-box" novalidate>
-          <label for="ci">Número de cédula</label>
-          <div class="input-ci">
-            <input
-              type="text"
-              id="ci"
-              name="ci"
-              placeholder="Ingresa tu número de cédula"
-              maxlength="10"
-              inputmode="numeric"
-              autocomplete="off"
-              aria-invalid="false"
-              aria-describedby="msgError"
-            />
-          </div>
+        <div class="result-title" id="recintoTitle">Militares del recinto</div>
+        <p class="muted" id="msgBox"></p>
 
-          <button type="submit" id="btnConsultar" class="btn" disabled>
-            Consultar
-          </button>
-
-          <div id="msgError" class="error" role="alert"></div>
-        </form>
+        <div class="table-wrapper">
+          <table class="simple-table">
+            <thead>
+              <tr>
+                <th>GRADO / APELLIDOS Y NOMBRES</th>
+                <th>TELÉFONO</th>
+              </tr>
+            </thead>
+            <tbody id="militaresBody"></tbody>
+          </table>
+        </div>
       </section>
+
+      <div class="actions">
+        <a href="#" class="btn btn-secondary" id="btnVolver">Volver</a>
+      </div>
     </main>
 
     <footer>
@@ -59,6 +53,7 @@
   </div>
 
   <script src="js/config.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/militares_recinto.js"></script>
 </body>
+
 </html>

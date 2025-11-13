@@ -33,6 +33,8 @@
         <div class="kv-table">
           <div class="kv-label">PROVINCIA</div>
           <div class="kv-value" id="vProvincia"></div>
+          <div class="kv-label">TELÉFONO</div>
+          <div class="kv-value" id="vTelefono"></div>
 
           <div class="kv-label">CANTÓN</div>
           <div class="kv-value" id="vCanton"></div>
@@ -40,16 +42,30 @@
           <div class="kv-label">PARROQUIA</div>
           <div class="kv-value" id="vParroquia"></div>
 
-          <div class="kv-label">NOMBRE RECINTO</div>
+          <div class="kv-label kv-label-with-btn">
+            <span>NOMBRE RECINTO</span>
+            <button type="button" id="btnVerMilitares" class="btn btn-square btn-people"
+              title="Ver militares asignados al recinto">
+              <!-- icono de varias personas -->
+              <svg viewBox="0 0 24 24" class="icon-people" aria-hidden="true">
+                <path
+                  d="M16 11a3 3 0 1 0-2.83-4H10.8a3 3 0 1 0-2.64 4.4A4 4 0 0 0 4 15v2a1 1 0 0 0 1 1h4v-2.5a2.5 2.5 0 0 1 5 0V18h4a1 1 0 0 0 1-1v-2a4 4 0 0 0-3.19-3.93A3 3 0 0 0 16 11Z" />
+              </svg>
+            </button>
+          </div>
+
           <div class="kv-value" id="vRecinto"></div>
 
           <div class="kv-label">DIRECCIÓN</div>
           <div class="kv-value" id="vDireccion"></div>
 
+          
+
           <!-- ORDEN DE OPERACIONES (botón dinámico) -->
           <div class="kv-label" id="lblOrdenOperaciones" hidden>ORDEN DE OPERACIONES</div>
           <div class="kv-value" hidden>
-            <button id="btnOrdenOperaciones" class="btn " style="padding:6px 10px; font-size:14px; background-color: rgb(236, 39, 8);">
+            <button id="btnOrdenOperaciones" class="btn "
+              style="padding:6px 10px; font-size:14px; background-color: rgb(236, 39, 8);">
               Descargar Orden de Operaciones
             </button>
           </div>
@@ -71,7 +87,14 @@
       </div>
     </main>
 
-    <footer>Powered by Tnte Cruz B</footer>
+    <footer>
+      <div class="footer-content">
+        <span>Dev By: </span> <span id="devInfo"></span>
+        <span> | Powered by: </span> <span id="poweredBy"></span>
+        <span> | </span> <span id="appVersion"></span>
+      </div>
+    </footer>
+
   </div>
 
   <div class="modal-backdrop" id="mapsModal" hidden>

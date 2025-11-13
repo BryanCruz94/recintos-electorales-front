@@ -43,6 +43,7 @@
   const vParroquia = document.getElementById("vParroquia");
   const vRecinto = document.getElementById("vRecinto");
   const vDireccion = document.getElementById("vDireccion");
+  const vTelefono = document.getElementById("vTelefono");
 
   // NUEVOS elementos de Orden de Operaciones
   const lblOrden = document.getElementById("lblOrdenOperaciones");
@@ -85,12 +86,33 @@
     const parroquia = data.PARROQUIA || "";
     const recinto = data.NOMBRE_RECINTO || "";
     const direccion = data.DIRECCION || data.DIRECCIÓN || "";
+    const telefono = data.TELEFONO || data.TELÉFONO || "";
+    const codRecinto = (data.COD_RECINTO || "").toString().trim();
+
 
     vProvincia.textContent = provincia;
     vCanton.textContent = canton;
     vParroquia.textContent = parroquia;
     vRecinto.textContent = recinto;
     vDireccion.textContent = direccion;
+    vTelefono.textContent = telefono;
+
+    // ==== botón "ver militares del recinto" ====
+    const btnVerMilitares = document.getElementById("btnVerMilitares");
+    if (btnVerMilitares && codRecinto) {
+      btnVerMilitares.disabled = false;
+      btnVerMilitares.addEventListener("click", () => {
+        // guardamos datos del recinto para la otra pantalla
+        sessionStorage.setItem("recinto_actual_cod", codRecinto);
+        sessionStorage.setItem("recinto_actual_nombre", recinto);
+
+        const unidadLower = unidad.toLowerCase();
+        
+        window.location.href = `militares_recinto.html?unit=${unidadLower}&cod=${encodeURIComponent(
+          codRecinto
+        )}`;
+      });
+    }
 
     // ==== ORDEN DE OPERACIONES (mostrar botón solo si existe) ====
     const orden = (data.ORDEN_OPERACIONES || "").toString().trim();
