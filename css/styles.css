@@ -360,4 +360,92 @@ main {
   fill: currentColor;
 }
 
+/* ===== Tabla militares: estilos base ===== */
+.table-wrapper {
+  margin-top: 12px;
+  overflow-x: auto;        /* por si acaso en pantallas MUY chicas */
+}
+
+.simple-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.simple-table thead th {
+  text-align: left;
+  padding: 8px 6px;
+  background: #e5edf7;
+  border-bottom: 1px solid var(--gris-borde);
+}
+
+.simple-table tbody td {
+  padding: 8px 6px;
+  vertical-align: middle;
+}
+
+/* Línea divisoria entre filas y mejor lectura */
+.simple-table tbody tr {
+  border-bottom: 1px solid var(--gris-borde);
+}
+
+.simple-table tbody tr:nth-child(odd) {
+  background: #f9fafb; /* efecto zebra suave */
+}
+
+/* ===== Celda de teléfono + botón ===== */
+
+/* sobreescribimos lo anterior */
+.cell-phone {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* El número ocupa todo el espacio disponible y puede partirse si es muy largo */
+.cell-phone span {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  word-break: break-all;   /* evita que se meta debajo del botón */
+}
+
+/* Botón siempre del mismo tamaño, no se comprime */
+.btn-phone {
+  padding: 6px;
+  min-width: 36px;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+}
+
+.btn-phone .icon-phone {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* ===== Ajustes específicos para celulares ===== */
+@media (max-width: 480px) {
+  .simple-table thead th,
+  .simple-table tbody td {
+    font-size: 12px;
+    padding: 6px 4px;
+  }
+
+  /* En cel el número arriba y el botón abajo/derecha */
+  .cell-phone {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn-phone {
+    align-self: flex-end;
+    margin-top: 4px;
+  }
+}
+
 
