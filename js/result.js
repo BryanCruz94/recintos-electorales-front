@@ -44,6 +44,7 @@
   const vRecinto = document.getElementById("vRecinto");
   const vDireccion = document.getElementById("vDireccion");
   const vTelefono = document.getElementById("vTelefono");
+  const labelTelefono = document.getElementById("labelTelefono");
 
   // NUEVOS elementos de Orden de Operaciones
   const lblOrden = document.getElementById("lblOrdenOperaciones");
@@ -81,6 +82,17 @@
     missionBox.hidden = false;
     tableBox.hidden = true;
   } else {
+    console.log("telefono: " + data.TELÉFONO);
+    console.log("tipo: " + typeof (data.TELÉFONO));
+
+    if (data.TELÉFONO === "") {
+      vTelefono.hidden = true;
+      labelTelefono.hidden = true;
+    } else {
+      vTelefono.hidden = false;
+      labelTelefono.hidden = false;
+    }
+
     const provincia = data.PROVINCIA || "";
     const canton = data.CANTON || data.CANTÓN || "";
     const parroquia = data.PARROQUIA || "";
@@ -107,7 +119,7 @@
         sessionStorage.setItem("recinto_actual_nombre", recinto);
 
         const unidadLower = unidad.toLowerCase();
-        
+
         window.location.href = `militares_recinto.html?unit=${unidadLower}&cod=${encodeURIComponent(
           codRecinto
         )}`;
