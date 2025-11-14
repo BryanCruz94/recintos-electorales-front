@@ -10,8 +10,8 @@ window.APP_CONFIG = {
       logo: "logo_gcm12.png",
     },
     IVDE: {
-      title: "CUARTA DIVISIÓN DE EJÉRCITO “AMAZONAS”",
-      logo: "logo_ivde.png",
+      title: 'BRIGADA DE SELVA N° 17 "PASTAZA"',
+      logo: "logo_17bs.png",
     },
     // aquí puedes seguir agregando:
     // BRIG45: { title: "BRIGADA DE SELVA N.º 45", logo: "logo_brig45.png" }
