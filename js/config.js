@@ -13,6 +13,10 @@ window.APP_CONFIG = {
       title: 'BRIGADA DE SELVA N° 17 "PASTAZA"',
       logo: "logo_17bs.png",
     },
+    GCM16: {
+      title: 'GRUPO DE CABALLERÍA MECANIZADO N.º 16 "SARAGURO"',
+      logo: "logo_gcm16.png",
+    },
     // aquí puedes seguir agregando:
     // BRIG45: { title: "BRIGADA DE SELVA N.º 45", logo: "logo_brig45.png" }
     // UNIDAD PARA PRUEBAS
@@ -26,6 +30,6 @@ window.APP_CONFIG = {
   APP_INFO: {
     DEV: "TNTE Cruz B.",
     POWERED_BY: "CAPT Almachi J.",
-    VERSION: "V1.3.3",
+    VERSION: "V1.3.4",
   }
 };

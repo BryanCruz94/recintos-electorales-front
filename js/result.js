@@ -184,4 +184,13 @@ if (btnNueva) {
     const unidad = sessionStorage.getItem("unidad_activa") || "gcm12";
     window.location.href = `index.html?unit=${unidad.toLowerCase()}`;
   });
+
+  // ===== footer =====
+  const devInfo = document.getElementById("devInfo");
+  const poweredBy = document.getElementById("poweredBy");
+  const appVersion = document.getElementById("appVersion");
+
+  devInfo.textContent = window.APP_CONFIG.APP_INFO.DEV;
+  poweredBy.textContent = window.APP_CONFIG.APP_INFO.POWERED_BY;
+  appVersion.textContent = window.APP_CONFIG.APP_INFO.VERSION;
 }
