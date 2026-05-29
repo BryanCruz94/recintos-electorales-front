@@ -143,7 +143,9 @@
     tableBox.hidden = false;
     missionBox.hidden = true;
 
-    const partes = [recinto, direccion, canton, provincia].filter(Boolean);
+    // *************** HAGO MODIFICACIÓN SOLO PARA REVISTA COT
+    //const partes = [recinto, direccion, canton, provincia].filter(Boolean);
+    const partes = [direccion, canton, provincia].filter(Boolean);
     currentMapsQuery = partes.join(", ");
 
     if (btnMaps) {
