@@ -84,6 +84,69 @@
   setUnitBranding(unidad);
   const data = consulta.data;
 
+  // Completar el contacto antes de revelar los datos del recinto.
+  const telefonoActual = (data.TELEFONO || data["TELÉFONO"] || "").toString().trim();
+  if (!telefonoActual) {
+    const telefonoBox = document.getElementById("telefonoBox");
+    headerBox.hidden = true;
+    missionBox.hidden = true;
+    tableBox.hidden = true;
+    jefeCantonBox.hidden = true;
+    telefonoBox.hidden = false;
+    const nombreCompleto = [data.GRADO, data.APELLIDOS_Y_NOMBRES].filter(Boolean).join(" ");
+    telefonoBox.innerHTML = `
+      <div class="result-title">Registro de número de contacto</div>
+      <p class="muted">Bienvenido${nombreCompleto ? ` ${escapeHtml(nombreCompleto)}` : ""}. Para acceder a la información de tu recinto electoral, registra un número celular en el que podamos contactarte. Este dato permitirá que tus compañeros asignados al mismo recinto y tu supervisor puedan comunicarse contigo cuando sea necesario.</p>
+      <form id="telefonoForm" class="telefono-form" novalidate>
+        <label for="telefonoInput">Número celular</label>
+        <input id="telefonoInput" name="telefono" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="10" placeholder="09XXXXXXXX" required aria-describedby="telefonoError">
+        <p id="telefonoError" class="form-error" role="alert"></p>
+        <button id="telefonoSubmit" class="btn" type="submit" disabled>Guardar y continuar</button>
+      </form>`;
+    const telefonoInput = document.getElementById("telefonoInput");
+    const telefonoSubmit = document.getElementById("telefonoSubmit");
+    const telefonoError = document.getElementById("telefonoError");
+    telefonoInput.addEventListener("input", () => {
+      telefonoInput.value = telefonoInput.value.replace(/\D/g, "").slice(0, 10);
+      const valid = /^09\d{8}$/.test(telefonoInput.value);
+      telefonoSubmit.disabled = !valid;
+      telefonoInput.setAttribute("aria-invalid", telefonoInput.value && !valid ? "true" : "false");
+      telefonoError.textContent = telefonoInput.value && !valid
+        ? "Ingresa un celular ecuatoriano de 10 dígitos que empiece por 09."
+        : "";
+    });
+    document.getElementById("telefonoForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const telefono = telefonoInput.value;
+      if (!/^09\d{8}$/.test(telefono)) return;
+      telefonoSubmit.disabled = true;
+      telefonoSubmit.textContent = "Guardando…";
+      telefonoError.textContent = "";
+      try {
+        const response = await fetch(`${window.APP_CONFIG.API_BASE_URL}/militar/${unidad}/${encodeURIComponent(data.CI)}/telefono`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ telefono })
+        });
+        const result = await response.json();
+        if (!response.ok || !result.success) throw new Error(result.message || "No se pudo guardar el número.");
+        data.TELÉFONO = telefono;
+        data.TELEFONO = telefono;
+        sessionStorage.setItem("consulta_militar", JSON.stringify(consulta));
+        window.location.reload();
+      } catch (error) {
+        telefonoError.textContent = error.message || "Error al guardar el número. Intenta nuevamente.";
+        telefonoSubmit.disabled = false;
+        telefonoSubmit.textContent = "Guardar y continuar";
+      }
+    });
+    return;
+  }
+
+  function escapeHtml(value) {
+    return value.toString().replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
+  }
+
   const grado = (data.GRADO || "").toString().trim();
   const nombres = (data.APELLIDOS_Y_NOMBRES || "").toString().trim();
 

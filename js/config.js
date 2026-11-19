@@ -28,8 +28,8 @@ window.APP_CONFIG = {
 
   //VARIABLES DE INFORMACIÓN DEL APLICATIVO
   APP_INFO: {
-    DEV: "TNTE Cruz B.",
+    DEV: "CAPT Cruz B.",
     POWERED_BY: "CAPT Almachi J.",
-    VERSION: "V1.4.0",
+    VERSION: "V1.4.2",
   }
 };

@@ -108,12 +108,13 @@
                     const spanNumero = document.createElement("span");
                     spanNumero.textContent = telefono;
 
+                    // Ambos accesos usan el mismo número guardado para el militar.
+                    const numeroCelular = telefono.replace(/\D/g, "");
                     const linkLlamar = document.createElement("a");
-                    // Quitamos espacios para el tel:
-                    const telClean = telefono.replace(/\s+/g, "");
-                    linkLlamar.href = `tel:${telClean}`;
+                    linkLlamar.href = `tel:${numeroCelular}`;
                     linkLlamar.className = "btn btn-phone";
                     linkLlamar.title = `Llamar a ${telefono}`;
+                    linkLlamar.setAttribute("aria-label", `Llamar a ${telefono}`);
 
                     // Icono de teléfono sencillo (SVG)
                     linkLlamar.innerHTML = `
@@ -122,8 +123,29 @@
             </svg>
           `;
 
+                    const acciones = document.createElement("div");
+                    acciones.className = "phone-actions";
+                    acciones.appendChild(linkLlamar);
+
+                    const whatsappNumero = numeroCelular.startsWith("593")
+                        ? numeroCelular
+                        : numeroCelular.startsWith("0")
+                            ? `593${numeroCelular.slice(1)}`
+                            : `593${numeroCelular}`;
+                    const linkWhatsapp = document.createElement("a");
+                    linkWhatsapp.href = `https://wa.me/${whatsappNumero}`;
+                    linkWhatsapp.className = "btn btn-whatsapp";
+                    linkWhatsapp.target = "_blank";
+                    linkWhatsapp.rel = "noopener noreferrer";
+                    linkWhatsapp.title = `Enviar mensaje por WhatsApp a ${telefono}`;
+                    linkWhatsapp.setAttribute("aria-label", `Enviar mensaje por WhatsApp a ${telefono}`);
+                    linkWhatsapp.innerHTML = `
+                      <svg viewBox="0 0 24 24" class="icon-whatsapp" aria-hidden="true" focusable="false">
+                        <path d="M12.04 2a9.82 9.82 0 0 0-8.43 14.86L2.3 22l5.28-1.38A9.82 9.82 0 1 0 12.04 2Zm0 17.85a8 8 0 0 1-4.08-1.12l-.29-.17-3.13.82.84-3.05-.19-.31a8.02 8.02 0 1 1 6.85 3.83Zm4.4-6c-.24-.12-1.43-.7-1.65-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.41-1.33-1.65-.14-.24-.01-.37.1-.49.11-.1.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.46-.39-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.69 2.58 4.1 3.62.57.25 1.02.4 1.37.51.58.18 1.1.15 1.52.09.46-.07 1.43-.58 1.63-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z"/>
+                      </svg><span class="sr-only">WP</span>`;
+
                     tdTel.appendChild(spanNumero);
-                    tdTel.appendChild(linkLlamar);
+                    tdTel.appendChild(acciones);
                 } else {
                     tdTel.textContent = "-";
                 }
