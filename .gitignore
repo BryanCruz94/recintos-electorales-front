@@ -1,0 +1,11 @@
+.vscode/
+/.vscode/
+.env
+.env.*
+credentials/
+*.pem
+*.key
+*service-account*.json
+*service_account*.json
+*-credentials.json
+/GUIA_PROYECTO.local.md

@@ -39,9 +39,19 @@
     }
   }
 
+  function setUnitFeatureImage(unit) {
+    const image = document.getElementById("unitFeatureImage");
+    if (image && unit === "GCM12") {
+      image.src = "assets/img/operaciones_gcm12.jpeg";
+      image.alt = "Operaciones del GCM 12";
+      image.classList.add("unit-feature-image");
+    }
+  }
+
   const unidad = getUnitFromUrl();
   sessionStorage.setItem("unidad_activa", unidad);
   setUnitBranding(unidad);
+  setUnitFeatureImage(unidad);
 
   // ===== lógica del formulario =====
   const ciInput = document.getElementById("ci");
@@ -89,7 +99,10 @@
         return;
       }
 
-      sessionStorage.setItem("consulta_militar", JSON.stringify(data.data));
+      sessionStorage.setItem("consulta_militar", JSON.stringify({
+        unit: unidad,
+        data: data.data
+      }));
       sessionStorage.setItem("unidad_activa", unidad);
 
       // redirigimos pasando también la unidad

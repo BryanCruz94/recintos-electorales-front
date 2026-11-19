@@ -30,6 +30,6 @@ window.APP_CONFIG = {
   APP_INFO: {
     DEV: "TNTE Cruz B.",
     POWERED_BY: "CAPT Almachi J.",
-    VERSION: "V1.3.4",
+    VERSION: "V1.4.0",
   }
 };

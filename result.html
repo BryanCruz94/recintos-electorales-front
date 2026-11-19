@@ -29,6 +29,12 @@
         </p>
       </section>
 
+      <section class="card" id="jefeCantonBox" hidden>
+        <div class="result-title" id="jefeCantonTitle">Recintos del cantón</div>
+        <p class="muted" id="jefeCantonMessage">Cargando recintos…</p>
+        <div id="jefeCantonList" class="canton-recintos"></div>
+      </section>
+
       <section class="card" id="tableBox" hidden>
         <div class="kv-table">
           <div class="kv-label">PROVINCIA</div>
@@ -44,13 +50,14 @@
 
           <div class="kv-label kv-label-with-btn">
             <span>NOMBRE RECINTO</span>
-            <button type="button" id="btnVerMilitares" class="btn btn-square btn-people"
-              title="Ver militares asignados al recinto">
-              <!-- icono de varias personas -->
+            <button type="button" id="btnVerMilitares" class="btn btn-people"
+              title="Ver compañeros asignados a este recinto" aria-label="Ver compañeros asignados a este recinto">
               <svg viewBox="0 0 24 24" class="icon-people" aria-hidden="true">
-                <path
-                  d="M16 11a3 3 0 1 0-2.83-4H10.8a3 3 0 1 0-2.64 4.4A4 4 0 0 0 4 15v2a1 1 0 0 0 1 1h4v-2.5a2.5 2.5 0 0 1 5 0V18h4a1 1 0 0 0 1-1v-2a4 4 0 0 0-3.19-3.93A3 3 0 0 0 16 11Z" />
+                <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="10" cy="7" r="4" />
+                <path d="M20 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
               </svg>
+              <span>Ver compañeros</span>
             </button>
           </div>
 
@@ -64,14 +71,14 @@
           <!-- ORDEN DE OPERACIONES (botón dinámico) -->
           <div class="kv-label" id="lblOrdenOperaciones" hidden>ORDEN DE OPERACIONES</div>
           <div class="kv-value" hidden>
-            <button id="btnOrdenOperaciones" class="btn "
-              style="padding:6px 10px; font-size:14px; background-color: rgb(236, 39, 8);">
+            <button id="btnOrdenOperaciones" class="btn btn-document">
+              <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v6h5M10 14h6M10 18h6"/></svg>
               Descargar Orden de Operaciones
             </button>
           </div>
         </div>
 
-        <div class="actions" style="margin-top:12px;">
+        <div class="actions actions-compact">
           <button type="button" class="btn btn-map" id="btnMaps">
             <svg class="icon-map" viewBox="0 0 24 24" aria-hidden="true">
               <path
@@ -83,7 +90,7 @@
       </section>
 
       <div class="actions">
-        <a class="btn btn-secondary" id="btnNuevaConsulta">Nueva consulta</a>
+        <a class="btn btn-secondary" id="btnNuevaConsulta"><svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Nueva consulta</a>
       </div>
     </main>
 
@@ -105,8 +112,8 @@
       </p>
       <p class="modal-dir" id="modalDir"></p>
       <div class="modal-actions">
-        <button type="button" class="btn btn-secondary" id="btnModalCancel">Cancelar</button>
-        <button type="button" class="btn" id="btnModalOk">Abrir en Maps</button>
+        <button type="button" class="btn btn-secondary" id="btnModalCancel"><svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>Cancelar</button>
+        <button type="button" class="btn" id="btnModalOk"><svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-7.1 8-13a8 8 0 1 0-16 0c0 5.9 8 13 8 13Z"/><circle cx="12" cy="9" r="2.5"/></svg>Abrir en Maps</button>
       </div>
     </div>
   </div>

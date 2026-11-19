@@ -27,16 +27,16 @@
     }
   }
 
-  const unidad = getUnitFromUrl();
-  sessionStorage.setItem("unidad_activa", unidad);
-  setUnitBranding(unidad);
-
-  // ===== lo que ya tenías =====
+  const unidadUrl = getUnitFromUrl();
   const raw = sessionStorage.getItem("consulta_militar");
   const headerBox = document.getElementById("resultHeader");
   const missionBox = document.getElementById("missionBox");
   const missionValue = document.getElementById("missionValue");
   const tableBox = document.getElementById("tableBox");
+  const jefeCantonBox = document.getElementById("jefeCantonBox");
+  const jefeCantonTitle = document.getElementById("jefeCantonTitle");
+  const jefeCantonMessage = document.getElementById("jefeCantonMessage");
+  const jefeCantonList = document.getElementById("jefeCantonList");
 
   const vProvincia = document.getElementById("vProvincia");
   const vCanton = document.getElementById("vCanton");
@@ -58,16 +58,31 @@
 
   let currentMapsQuery = "";
 
-  if (!raw) {
+  let consulta;
+  try {
+    consulta = raw ? JSON.parse(raw) : null;
+  } catch {
+    consulta = null;
+  }
+
+  const unidadConsulta = consulta?.unit?.toString().trim().toUpperCase();
+  if (!consulta?.data || !unidadConsulta || unidadConsulta !== unidadUrl) {
+    const unidad = unidadConsulta || unidadUrl;
+    sessionStorage.removeItem("consulta_militar");
+    sessionStorage.setItem("unidad_activa", unidad);
+    setUnitBranding(unidad);
     headerBox.innerHTML = `
       <div class="result-title">Sin datos para mostrar</div>
-      <p class="muted">Realiza una consulta primero.</p>
+      <p class="muted">La consulta no corresponde a esta unidad. Realiza una nueva búsqueda.</p>
     `;
     setTimeout(() => (window.location.href = `index.html?unit=${unidad.toLowerCase()}`), 1500);
     return;
   }
 
-  const data = JSON.parse(raw);
+  const unidad = unidadConsulta;
+  sessionStorage.setItem("unidad_activa", unidad);
+  setUnitBranding(unidad);
+  const data = consulta.data;
 
   const grado = (data.GRADO || "").toString().trim();
   const nombres = (data.APELLIDOS_Y_NOMBRES || "").toString().trim();
@@ -77,11 +92,19 @@
   `;
 
   const mision = (data.MISION || "").toString().trim();
-  if (mision && mision.toLowerCase() !== "recinto electoral") {
+  const esJefeCanton = /^JEFE\s+DE\s+CANT[ÓO]N\b/i.test(mision);
+  if (esJefeCanton) {
+    missionBox.hidden = true;
+    tableBox.hidden = true;
+    jefeCantonBox.hidden = false;
+    jefeCantonTitle.textContent = `Recintos del cantón ${mision.replace(/^JEFE\s+DE\s+CANT[ÓO]N\s*/i, "")}`;
+    cargarRecintosJefeCanton(data.CI);
+  }
+  if (!esJefeCanton && mision && mision.toLowerCase() !== "recinto electoral") {
     missionValue.textContent = mision;
     missionBox.hidden = false;
     tableBox.hidden = true;
-  } else {
+  } else if (!esJefeCanton) {
     console.log("telefono: " + data.TELÉFONO);
     console.log("tipo: " + typeof (data.TELÉFONO));
 
@@ -143,8 +166,18 @@
     tableBox.hidden = false;
     missionBox.hidden = true;
 
-    const partes = [recinto, direccion, canton, provincia].filter(Boolean);
-    currentMapsQuery = partes.join(", ");
+    const longitud = (data.LONG || "").toString().trim().replace(",", ".");
+    const latitud = (data.LAT || "").toString().trim().replace(",", ".");
+    const coordenadasValidas = longitud && latitud &&
+      Number.isFinite(Number(longitud)) && Number.isFinite(Number(latitud)) &&
+      Number(longitud) >= -180 && Number(longitud) <= 180 &&
+      Number(latitud) >= -90 && Number(latitud) <= 90;
+    if (coordenadasValidas) {
+      currentMapsQuery = `${latitud},${longitud}`;
+    } else {
+      const partes = [recinto, direccion, canton, provincia].filter(Boolean);
+      currentMapsQuery = partes.join(", ");
+    }
 
     if (btnMaps) {
       btnMaps.addEventListener("click", () => {
@@ -154,6 +187,73 @@
           modalDir.textContent = currentMapsQuery;
         }
       });
+    }
+  }
+
+  async function cargarRecintosJefeCanton(ci) {
+    if (!ci) {
+      jefeCantonMessage.textContent = "No se encontró la cédula para cargar los recintos.";
+      return;
+    }
+    try {
+      const url = `${window.APP_CONFIG.API_BASE_URL}/jefe-canton/${unidad}/${encodeURIComponent(ci)}/recintos`;
+      const response = await fetch(url);
+      const json = await response.json();
+      if (!response.ok || !json.success) throw new Error(json.message || "No se pudieron cargar los recintos.");
+      const recintos = json.RECINTOS || [];
+      jefeCantonTitle.textContent = `Recintos del cantón ${json.CANTON}`;
+      jefeCantonMessage.textContent = recintos.length
+        ? `${recintos.length} recinto${recintos.length === 1 ? "" : "s"} encontrado${recintos.length === 1 ? "" : "s"}. Selecciona uno para ver sus integrantes.`
+        : "No hay recintos registrados para este cantón.";
+      recintos.forEach((recinto) => {
+        const details = document.createElement("details");
+        details.className = "canton-recinto";
+        const summary = document.createElement("summary");
+        summary.textContent = recinto.NOMBRE_RECINTO || "Recinto sin nombre";
+        details.appendChild(summary);
+
+        const direccion = document.createElement("p");
+        direccion.className = "muted recinto-direccion";
+        direccion.textContent = recinto.DIRECCION || "Sin dirección registrada";
+        details.appendChild(direccion);
+
+        const miembros = document.createElement("ul");
+        miembros.className = "integrantes-list";
+        (recinto.INTEGRANTES || []).forEach((integrante) => {
+          const li = document.createElement("li");
+          const nombre = document.createElement("span");
+          nombre.textContent = `${integrante.GRADO ? `${integrante.GRADO} ` : ""}${integrante.APELLIDOS_Y_NOMBRES || "Sin nombre"}`;
+          li.appendChild(nombre);
+          if (integrante.TELEFONO) {
+            const tel = document.createElement("a");
+            tel.className = "integrante-telefono";
+            tel.href = `tel:${integrante.TELEFONO.toString().replace(/\s+/g, "")}`;
+            tel.textContent = integrante.TELEFONO;
+            li.appendChild(tel);
+          }
+          miembros.appendChild(li);
+        });
+        details.appendChild(miembros);
+
+        const long = (recinto.LONG || "").toString().trim().replace(",", ".");
+        const lat = (recinto.LAT || "").toString().trim().replace(",", ".");
+        const coordsValidas = long && lat && Number.isFinite(Number(long)) && Number.isFinite(Number(lat)) &&
+          Number(long) >= -180 && Number(long) <= 180 && Number(lat) >= -90 && Number(lat) <= 90;
+        const destino = coordsValidas ? `${lat},${long}` :
+          [recinto.NOMBRE_RECINTO, recinto.DIRECCION, recinto.CANTON, recinto.PROVINCIA].filter(Boolean).join(", ");
+        if (destino) {
+          const maps = document.createElement("a");
+          maps.className = "btn btn-map recinto-maps";
+          maps.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(destino)}`;
+          maps.target = "_blank";
+          maps.rel = "noopener noreferrer";
+          maps.innerHTML = `<svg class="icon-map" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.962 2 6.5 4.462 6.5 7.5c0 4.004 4.39 8.82 5.66 10.12a.5.5 0 0 0 .72 0c1.27-1.3 5.62-6.116 5.62-10.12C18.5 4.462 16.038 2 13 2h-1Zm0 6.75a2.25 2.25 0 1 1 0-4.5 2.25 2.25 0 0 1 0 4.5Z"/></svg><span>Navegar con Google Maps</span>`;
+          details.appendChild(maps);
+        }
+        jefeCantonList.appendChild(details);
+      });
+    } catch (error) {
+      jefeCantonMessage.textContent = error.message || "Error al cargar los recintos.";
     }
   }
 
